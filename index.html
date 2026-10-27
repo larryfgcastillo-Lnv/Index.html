@@ -1,4 +1,4 @@
-<!-- Quotiva PRO · catálogo con fotos, panel administrativo protegido y promociones -->
+<!-- Quotiva PRO · catálogo de cardamomo con fotos, panel administrativo protegido y promociones -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Quotiva PRO</title>
@@ -542,8 +542,8 @@ td input,td select{padding:5px 7px;font-size:13.5px}
 
       <div class="card">
         <h3 id="pd-titulo">Nuevo producto</h3>
-        <label class="f"><span>Código o SKU</span><input id="pd-sku" placeholder="LM-140"></label>
-        <label class="f"><span>Nombre</span><input id="pd-nombre" placeholder="Lámina galvanizada"></label>
+        <label class="f"><span>Código o SKU</span><input id="pd-sku" placeholder="CARD-001"></label>
+        <label class="f"><span>Nombre</span><input id="pd-nombre" placeholder="Cardamomo nuevo"></label>
         <label class="f"><span>Descripción</span><input id="pd-desc" placeholder="Calibre 26 · 3.66 m"></label>
         <div class="grid2">
           <label class="f"><span>Precio de lista</span><input id="pd-precio" type="number" min="0" step="0.01" value="0"></label>
@@ -555,7 +555,7 @@ td input,td select{padding:5px 7px;font-size:13.5px}
           <span class="hint">La imagen se guarda con el producto y es la que ve el cliente. Si no sube ninguna, se usa la ilustración de abajo.</span></label>
         <label class="f"><span>Ilustración de respaldo</span>
           <select id="pd-icono">
-            <option value="lamina">Lámina</option><option value="tubo">Tubo</option>
+            <option value="cardamomo">Cardamomo</option><option value="lamina">Lámina</option><option value="tubo">Tubo</option>
             <option value="varilla">Varilla</option><option value="perfil">Perfil</option>
             <option value="soldadura">Caja o consumible</option><option value="tornillo">Tornillería</option>
           </select></label>
@@ -649,6 +649,7 @@ function foto(tipo){
   const base = (inner,bg) => "data:image/svg+xml;utf8," + encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150"><rect width="200" height="150" fill="${bg}"/>${inner}</svg>`);
   const s = {
+    cardamomo: base(`<g fill="#9DBE7A" stroke="#6E8F4E" stroke-width="3"><ellipse cx="78" cy="78" rx="14" ry="38" transform="rotate(-25 78 78)"/><ellipse cx="104" cy="74" rx="14" ry="38" transform="rotate(8 104 74)"/><ellipse cx="128" cy="84" rx="14" ry="38" transform="rotate(32 128 84)"/></g><g stroke="#6E8F4E" stroke-width="2" fill="none"><path d="M70 50q-6 28 6 54M104 38v72M134 52q10 26 -2 50"/></g>`, "#F3F7EC"),
     lamina: base(`<g fill="none" stroke="#8FA3B0" stroke-width="3"><path d="M20 100q10-16 20 0t20 0 20 0 20 0 20 0 20 0 20 0"/><path d="M20 84q10-16 20 0t20 0 20 0 20 0 20 0 20 0 20 0"/><path d="M20 68q10-16 20 0t20 0 20 0 20 0 20 0 20 0 20 0"/></g><path d="M20 100v14M180 100v14" stroke="#B7C6CF" stroke-width="3"/>`, "#EDF2F4"),
     tubo: base(`<rect x="34" y="52" width="132" height="46" fill="#C3D0D8" stroke="#8FA3B0" stroke-width="3"/><rect x="34" y="52" width="30" height="46" fill="#9FB2BD" stroke="#8FA3B0" stroke-width="3"/><rect x="42" y="60" width="14" height="30" fill="#EDF2F4" stroke="#8FA3B0" stroke-width="2"/>`, "#F1F5F6"),
     varilla: base(`<g stroke="#A6836A" stroke-width="9" stroke-linecap="round"><path d="M28 62h144M28 92h144"/></g><g stroke="#EDF2F4" stroke-width="3"><path d="M40 56l-8 12M70 56l-8 12M100 56l-8 12M130 56l-8 12M160 56l-8 12M40 86l-8 12M70 86l-8 12M100 86l-8 12M130 86l-8 12M160 86l-8 12"/></g>`, "#F4F0EC"),
@@ -661,32 +662,25 @@ function foto(tipo){
 
 /* ================== datos ================== */
 let catalogo = [
-  {sku:"LM-140", nombre:"Lámina galvanizada", desc:"Calibre 26 · 3.66 m", precio:18.40, unidad:"Lámina", icono:"lamina", img:"imagenes/LM-140.jpg", activo:true},
-  {sku:"TB-200", nombre:'Tubo estructural 2"', desc:"2\" x 2\" · pared 1.5 mm", precio:32.75, unidad:"Tubo", icono:"tubo", img:"imagenes/TB-200.jpg", activo:true},
-  {sku:"VR-38",  nombre:"Varilla corrugada #3", desc:"9 m · grado 40", precio:7.90, unidad:"Varilla", icono:"varilla", img:"imagenes/VR-38.jpg", activo:true},
-  {sku:"PF-500", nombre:'Perfil C 6"', desc:"6\" x 6 m · negro", precio:54.20, unidad:"Perfil", icono:"perfil", img:"imagenes/PF-500.jpg", activo:true},
-  {sku:"SL-010", nombre:"Soldadura 6013", desc:"Caja de 20 kg", precio:71.00, unidad:"Caja", icono:"soldadura", img:"imagenes/SL-010.jpg", activo:true},
-  {sku:"TR-025", nombre:"Tornillo autoperforante", desc:'Caja 500 u · 1"', precio:12.60, unidad:"Caja", icono:"tornillo", img:"imagenes/TR-025.jpg", activo:true},
+  {sku:"CARD-STD",  nombre:"Cardamomo Standard",      desc:"Calidad estándar · por libra",   precio:100.00, unidad:"Libra", icono:"cardamomo", img:"imagenes/CARD-STD.jpg",  depto:"Cardamomo", activo:true},
+  {sku:"CARD-GREEN",nombre:"Cardamomo Green",         desc:"Verde seleccionado · por libra", precio:120.00, unidad:"Libra", icono:"cardamomo", img:"imagenes/CARD-GREEN.jpg",depto:"Cardamomo", activo:true},
+  {sku:"CARD-GSP",  nombre:"Cardamomo Green Special", desc:"Verde especial · por libra",     precio:140.00, unidad:"Libra", icono:"cardamomo", img:"imagenes/CARD-GSP.jpg",  depto:"Cardamomo", activo:true},
+  {sku:"CARD-SEED", nombre:"Cardamomo Seed",          desc:"Semilla · por libra",            precio:160.00, unidad:"Libra", icono:"cardamomo", img:"imagenes/CARD-SEED.jpg", depto:"Cardamomo", activo:true},
 ];
-const fotoRespaldo = i => foto(i || "tornillo");
-const imagenDe = p => imagenes[p.sku] || p.img || foto(p.icono || "tornillo");
+const fotoRespaldo = i => foto(i || "cardamomo");
+const imagenDe = p => imagenes[p.sku] || p.img || foto(p.icono || "cardamomo");
 const visibles = () => catalogo.filter(p=>p.activo);
 
 const empresa = {
-  nombre:"Aceros y Perfiles del Valle", logo:"", correo:"ventas@acerosvalle.hn",
+  nombre:"Cardamomo Honduras", logo:"", correo:"ventas@ejemplo.com",
   telefono:"+504 2200 1100", pais:"Honduras", direccion:"Blvd. Suyapa, Tegucigalpa",
   whatsapp:"50422001100", horario:"Lunes a viernes, 8:00 a 17:00",
   activo:true, diasVigencia:15,
   mensaje:"Hola {cliente}, hemos recibido su solicitud de cotización {folio}.\n\nPuede revisarla aquí:\n{enlace}\n\nGracias por contactar a {empresa}."
 };
 
-let promociones = [
-  {id:1, nombre:"Lleve 5 y pague 4", tipo:"cantidad", x:5, y:1, sku:"VR-38",
-   alcance:"todos", valor:"", hasta:fechaEn(45), activa:true},
-  {id:2, nombre:"15% en láminas · Honduras", tipo:"porcentaje", pct:15, sku:"LM-140",
-   alcance:"estado", valor:"Honduras", hasta:fechaEn(20), activa:true},
-];
-let promoId = 2;
+let promociones = [];
+let promoId = 0;
 
 const cotizaciones = [];
 let consecutivo = 0;
@@ -725,7 +719,7 @@ function restaurar(){
 }
 
 /* ---------- departamentos y opciones del catálogo ---------- */
-let departamentos = ["General"];
+let departamentos = ["Cardamomo","General"];
 const opciones = { mostrarPrecios:false, envioDefecto:0, verDestacados:true, tituloDestacados:"Los más vendidos" };
 
 /* ---------- imágenes de producto (IndexedDB: soporta miles de productos) ---------- */
@@ -810,9 +804,9 @@ const totalDe = q => sumaLineas(q) + envioDe(q);
 
 /* ================== cuentas, sesión y navegación por rol ================== */
 const usuarios = [
-  {usuario:"admin", clave:"admin123", rol:"admin", nombre:"Carlos Padilla", correo:"ventas@acerosvalle.hn"},
+  {usuario:"admin", clave:"admin123", rol:"admin", nombre:"Carlos Padilla", correo:"ventas@ejemplo.com"},
   {usuario:"maria", clave:"cliente123", rol:"cliente", nombre:"María Rentería",
-   correo:"maria@acerosdelnorte.hn", empresa:"Aceros del Norte S.A.",
+   correo:"maria@ejemplo.com", empresa:"Cliente de ejemplo",
    telefono:"+504 2234 5566", whatsapp:"+504 9988 7766", ciudad:"Tegucigalpa", pais:"Honduras"},
 ];
 let sesion = {rol:"invitado"};
@@ -1492,7 +1486,7 @@ function editarProducto(sku){
   dom("pd-sku").value = p.sku; dom("pd-sku").disabled = true;
   dom("pd-nombre").value = p.nombre; dom("pd-desc").value = p.desc;
   dom("pd-precio").value = p.precio; dom("pd-unidad").value = p.unidad||"Unidad";
-  dom("pd-archivo").value = ""; dom("pd-icono").value = p.icono||"tornillo";
+  dom("pd-archivo").value = ""; dom("pd-icono").value = p.icono||"cardamomo";
   dom("pd-depto").value = p.depto||"General";
   dom("pd-activo").checked = p.activo;
   dom("pd-destacado").checked = !!p.destacado;
