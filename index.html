@@ -661,13 +661,14 @@ function foto(tipo){
 
 /* ================== datos ================== */
 let catalogo = [
-  {sku:"LM-140", nombre:"Lámina galvanizada", desc:"Calibre 26 · 3.66 m", precio:18.40, unidad:"Lámina", icono:"lamina", img:"", activo:true},
-  {sku:"TB-200", nombre:'Tubo estructural 2"', desc:"2\" x 2\" · pared 1.5 mm", precio:32.75, unidad:"Tubo", icono:"tubo", img:"", activo:true},
-  {sku:"VR-38",  nombre:"Varilla corrugada #3", desc:"9 m · grado 40", precio:7.90, unidad:"Varilla", icono:"varilla", img:"", activo:true},
-  {sku:"PF-500", nombre:'Perfil C 6"', desc:"6\" x 6 m · negro", precio:54.20, unidad:"Perfil", icono:"perfil", img:"", activo:true},
-  {sku:"SL-010", nombre:"Soldadura 6013", desc:"Caja de 20 kg", precio:71.00, unidad:"Caja", icono:"soldadura", img:"", activo:true},
-  {sku:"TR-025", nombre:"Tornillo autoperforante", desc:'Caja 500 u · 1"', precio:12.60, unidad:"Caja", icono:"tornillo", img:"", activo:true},
+  {sku:"LM-140", nombre:"Lámina galvanizada", desc:"Calibre 26 · 3.66 m", precio:18.40, unidad:"Lámina", icono:"lamina", img:"imagenes/LM-140.jpg", activo:true},
+  {sku:"TB-200", nombre:'Tubo estructural 2"', desc:"2\" x 2\" · pared 1.5 mm", precio:32.75, unidad:"Tubo", icono:"tubo", img:"imagenes/TB-200.jpg", activo:true},
+  {sku:"VR-38",  nombre:"Varilla corrugada #3", desc:"9 m · grado 40", precio:7.90, unidad:"Varilla", icono:"varilla", img:"imagenes/VR-38.jpg", activo:true},
+  {sku:"PF-500", nombre:'Perfil C 6"', desc:"6\" x 6 m · negro", precio:54.20, unidad:"Perfil", icono:"perfil", img:"imagenes/PF-500.jpg", activo:true},
+  {sku:"SL-010", nombre:"Soldadura 6013", desc:"Caja de 20 kg", precio:71.00, unidad:"Caja", icono:"soldadura", img:"imagenes/SL-010.jpg", activo:true},
+  {sku:"TR-025", nombre:"Tornillo autoperforante", desc:'Caja 500 u · 1"', precio:12.60, unidad:"Caja", icono:"tornillo", img:"imagenes/TR-025.jpg", activo:true},
 ];
+const fotoRespaldo = i => foto(i || "tornillo");
 const imagenDe = p => imagenes[p.sku] || p.img || foto(p.icono || "tornillo");
 const visibles = () => catalogo.filter(p=>p.activo);
 
@@ -1010,7 +1011,7 @@ function tarjeta(p, q, demo){
        </div>`
     : `<button class="add" ${demo?"disabled":`data-mas="${p.sku}"`}>Agregar al pedido</button>`;
   return `<article class="prod ${q?"activo":""}">
-    <div class="foto"><img src="${imagenDe(p)}" alt="${escapar(p.nombre)}" loading="lazy"></div>
+    <div class="foto"><img src="${imagenDe(p)}" data-i="${p.icono||''}" alt="${escapar(p.nombre)}" loading="lazy" onerror="this.onerror=null;this.src=fotoRespaldo(this.dataset.i)"></div>
     <div class="cuerpo">
       <span class="sku">${escapar(p.sku)}</span>
       <span class="nom">${p.destacado?'<i style="font-style:normal;color:var(--amber)">★</i> ':""}${escapar(p.nombre)}</span>
@@ -1323,7 +1324,7 @@ function pintarProductos(){
   dom("pg-sig").disabled = (pagina+1)*POR_PAGINA >= total;
   dom("pd-filas").innerHTML = total ? pagina_.map(p=>`
     <tr>
-      <td style="padding-left:14px"><img src="${imagenDe(p)}" alt="" style="width:46px;height:36px;object-fit:cover;border-radius:3px;border:1px solid var(--line)"></td>
+      <td style="padding-left:14px"><img src="${imagenDe(p)}" data-i="${p.icono||''}" onerror="this.onerror=null;this.src=fotoRespaldo(this.dataset.i)" alt="" style="width:46px;height:36px;object-fit:cover;border-radius:3px;border:1px solid var(--line)"></td>
       <td>${escapar(p.nombre)}<div class="hint mono">${escapar(p.sku)} · ${escapar(p.desc)}</div></td>
       <td>${escapar(p.depto||"General")}<div class="hint">${escapar(p.unidad||"Unidad")}</div></td>
       <td class="num">${money(p.precio)}${p.ocultarPrecio?'<div class="hint">precio oculto</div>':""}</td>
